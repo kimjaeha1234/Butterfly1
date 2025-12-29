@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카페인 체크 - 카페인 섭취 계산기</title>
+    <link rel="stylesheet" href="caffeine_calculator.css">
+</head>
+<body>
+    <div id="app" class="min-h-screen bg-light-gray">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-container">
+                <div class="header-logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <span class="logo-text">카페인 체크</span>
+                </div>
+                <nav class="header-nav">
+                    <button class="nav-btn active" data-page="calculator">계산기</button>
+                    <button class="nav-btn" data-page="stats">통계</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div id="calculator-page" class="page active">
+                <!-- Input Step -->
+                <div id="input-step" class="step active">
+                    <div class="calculator-grid">
+                        <div class="calculator-left">
+                            <!-- Age & Weight Section -->
+                            <div class="input-section">
+                                <div class="input-grid">
+                                    <div class="input-group">
+                                        <label class="input-label">
+                                            <span class="label-icon">👤</span>
+                                            나이 (세)
+                                        </label>
+                                        <input 
+                                            type="number" 
+                                            id="age-input" 
+                                            placeholder="예: 16"
+                                            class="input-field"
+                                        />
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="input-label">
+                                            <span class="label-icon">⚖️</span>
+                                            체중 (kg)
+                                        </label>
+                                        <input 
+                                            type="number" 
+                                            id="weight-input" 
+                                            placeholder="예: 55"
+                                            class="input-field"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Drink Selection -->
+                            <div class="drink-section">
+                                <h2 class="section-title">
+                                    <span class="section-icon">☕</span>
+                                    오늘 무엇을 섭취하셨나요?
+                                </h2>
+
+                                <div class="search-box">
+                                    <input 
+                                        type="text" 
+                                        id="search-input" 
+                                        placeholder=""
+                                        class="search-input"
+                                    />
+                                    <span class="search-icon">🔍</span>
+                                </div>
+
+                                <div id="drinks-container" class="drinks-grid"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="calculator-right">
+                            <!-- Caffeine Summary -->
+                            <div class="sidebar-card">
+                                <h3 class="sidebar-title">오늘의 카페인 원천</h3>
+                                <div id="caffeine-summary" class="caffeine-summary">
+                                    <p class="empty-message">선택한 음료가 없습니다.</p>
+                                </div>
+                            </div>
+
+                            <!-- Recommended Limit -->
+                            <div class="recommended-box">
+                                <div class="recommended-content">
+                                    <p class="recommended-label">권장 섭취량 대비</p>
+                                    <p class="recommended-value">
+                                        <span id="total-caffeine">0</span>
+                                        <span class="recommended-divider">/</span>
+                                        <span id="recommended-limit">0</span>
+                                        <span class="mg">mg</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button id="submit-btn" class="submit-btn" style="display: none;">
+                                내 상태 확인하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Step -->
+                <div id="result-step" class="step">
+                    <div class="result-container">
+                        <!-- Status Card -->
+                        <div id="status-card" class="status-card safe">
+                            <h2 id="status-title" class="status-title">안전합니다!</h2>
+                            <p id="status-message" class="status-message">지금처럼 건강한 습관을 유지해 보세요</p>
+                            
+                            <div class="status-grid">
+                                <div class="status-box">
+                                    <span class="status-label">나의 섭취량</span>
+                                    <div class="status-value">
+                                        <span id="result-total">0</span>
+                                        <span class="mg">mg</span>
+                                    </div>
+                                </div>
+                                <div class="status-box">
+                                    <span class="status-label">일일 권장량</span>
+                                    <div class="status-value">
+                                        <span id="result-recommended">0</span>
+                                        <span class="mg">mg</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Analysis Chart -->
+                        <div class="analysis-card">
+                            <h3>카페인 섭취 분석</h3>
+                            <canvas id="caffeine-chart" width="400" height="200"></canvas>
+                        </div>
+
+                        <!-- Analysis Boxes -->
+                        <div class="analysis-grid">
+                            <div class="analysis-box">
+                                <h4 id="analysis-title" class="analysis-box-title">
+                                    <span class="analysis-icon">✓</span>
+                                    상태 분석
+                                </h4>
+                                <ul id="analysis-list" class="analysis-list">
+                                    <li>집중력 향상 효과</li>
+                                    <li>적절한 에너지 유지</li>
+                                    <li>안정적인 수면 유도</li>
+                                </ul>
+                            </div>
+
+                            <div id="advice-box" class="analysis-box" style="display: none;">
+                                <h4 class="analysis-box-title">맞춤 조언</h4>
+                                <p id="advice-text" class="advice-text">물을 많이 마셔 이뇨 작용을 돕고, 가벼운 산책으로 신진대사를 높여보세요.</p>
+                                <button id="reset-btn" class="reset-btn">
+                                    <span class="reset-icon">↻</span>
+                                    다시 테스트하기
+                                </button>
+                            </div>
+
+                            <div id="safe-action-box" class="analysis-box">
+                                <button id="reset-btn-safe" class="reset-btn">
+                                    <span class="reset-icon">↻</span>
+                                    다시 테스트하기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Page Placeholder -->
+            <div id="stats-page" class="page">
+                <div class="stats-placeholder">
+                    <h2>통계 페이지</h2>
+                    <p>전체 사용자의 카페인 섭취 통계가 표시됩니다.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="caffeine_calculator.js"></script>
+</body>
+</html>

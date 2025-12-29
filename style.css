@@ -1,0 +1,799 @@
+/* ============================================
+   기본 색상 및 변수
+   ============================================ */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --bg-light: #f8fafc;
+    --bg-white: #ffffff;
+    --border-gray: #e5e7eb;
+    --gray-100: #f3f4f6;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --green-bg: #dbeafe;
+    --amber-bg: #fef3c7;
+    --red-bg: #fee2e2;
+    --safe-bg: #f0fdf4;
+    --safe-border: #dcfce7;
+    --warning-bg: #fffbeb;
+    --warning-border: #fef3c7;
+    --danger-bg: #fef2f2;
+    --danger-border: #fee2e2;
+    --teal-light: #e9f7f5;
+    --teal-border: #d1efec;
+    --teal-dark: #3e7e74;
+    --teal-success: #059669;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--gray-900);
+}
+
+/* ============================================
+   헤더
+   ============================================ */
+.header {
+    background-color: var(--bg-white);
+    border-bottom: 1px solid var(--border-gray);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background-color: var(--green-bg);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+}
+
+.logo-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.header-nav {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--gray-500);
+    transition: color 0.2s ease;
+    padding: 8px 0;
+}
+
+.nav-btn.active {
+    color: var(--primary);
+}
+
+.nav-btn:hover {
+    color: var(--gray-700);
+}
+
+/* ============================================
+   메인 컨텐츠
+   ============================================ */
+.main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* ============================================
+   계산기 페이지
+   ============================================ */
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calculator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 32px;
+}
+
+.calculator-left {
+    grid-column: span 8;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.calculator-right {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media (max-width: 1024px) {
+    .calculator-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .calculator-left {
+        grid-column: span 1;
+    }
+    
+    .calculator-right {
+        grid-column: span 1;
+    }
+}
+
+/* ============================================
+   입력 섹션 (나이, 체중)
+   ============================================ */
+.input-section {
+    background-color: var(--bg-white);
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid var(--border-gray);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+@media (max-width: 768px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray-700);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.label-icon {
+    display: inline-block;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background-color: var(--gray-100);
+    border: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-field:focus {
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* ============================================
+   음료 선택 섹션
+   ============================================ */
+.drink-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.section-icon {
+    display: inline-block;
+    font-size: 20px;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    font-size: 16px;
+    color: var(--gray-400);
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    border-radius: 12px;
+    border: 1px solid var(--border-gray);
+    background-color: var(--bg-white);
+    font-size: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.05);
+}
+
+.drinks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .drinks-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   음료 카드
+   ============================================ */
+.drink-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-gray);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.drink-card:hover {
+    border-color: rgba(37, 99, 235, 0.3);
+}
+
+.drink-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.drink-name {
+    font-weight: 700;
+    color: var(--gray-900);
+    font-size: 14px;
+}
+
+.drink-details {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--gray-500);
+}
+
+.drink-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.drink-count {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 16px;
+    min-width: 24px;
+    text-align: center;
+}
+
+.btn-control {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background-color: var(--gray-100);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-400);
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.btn-control:hover {
+    background-color: rgba(37, 99, 235, 0.05);
+    color: var(--primary);
+}
+
+.btn-control.minus:hover {
+    background-color: rgba(239, 68, 68, 0.05);
+    color: var(--red);
+}
+
+/* ============================================
+   사이드바
+   ============================================ */
+.sidebar-card {
+    background-color: var(--bg-white);
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid var(--border-gray);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sidebar-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.caffeine-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.caffeine-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.caffeine-item-name {
+    font-size: 14px;
+    color: var(--gray-600);
+    flex: 1;
+}
+
+.caffeine-item-value {
+    background-color: var(--green-bg);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.empty-message {
+    color: var(--gray-400);
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* ============================================
+   권장 섭취량 박스
+   ============================================ */
+.recommended-box {
+    background-color: var(--teal-light);
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid var(--teal-border);
+}
+
+.recommended-content {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.recommended-label {
+    font-size: 12px;
+    color: var(--teal-dark);
+}
+
+.recommended-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--teal-success);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+}
+
+.recommended-divider {
+    margin: 0 4px;
+}
+
+.mg {
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 4px;
+}
+
+/* ============================================
+   제출 버튼
+   ============================================ */
+.submit-btn {
+    width: 100%;
+    background-color: var(--primary);
+    color: var(--bg-white);
+    padding: 20px;
+    border-radius: 16px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+.submit-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   결과 페이지
+   ============================================ */
+.result-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.status-card {
+    border-radius: 40px;
+    padding: 48px;
+    border: 2px solid;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.status-card.safe {
+    color: var(--green);
+    background-color: var(--safe-bg);
+    border-color: var(--safe-border);
+}
+
+.status-card.warning {
+    color: var(--amber);
+    background-color: var(--warning-bg);
+    border-color: var(--warning-border);
+}
+
+.status-card.danger {
+    color: var(--red);
+    background-color: var(--danger-bg);
+    border-color: var(--danger-border);
+}
+
+.status-title {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.status-message {
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding-top: 16px;
+}
+
+@media (max-width: 768px) {
+    .status-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.status-box {
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.status-label {
+    font-size: 12px;
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+.status-value {
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+}
+
+/* ============================================
+   분석 카드
+   ============================================ */
+.analysis-card {
+    background-color: var(--bg-white);
+    border-radius: 40px;
+    padding: 40px;
+    border: 1px solid var(--border-gray);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.analysis-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+#caffeine-chart {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+/* ============================================
+   분석 그리드
+   ============================================ */
+.analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+@media (max-width: 768px) {
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.analysis-box {
+    background-color: var(--bg-white);
+    border-radius: 40px;
+    padding: 40px;
+    border: 1px solid var(--border-gray);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.analysis-box-title {
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.analysis-icon {
+    font-size: 18px;
+}
+
+.analysis-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.analysis-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--gray-600);
+}
+
+.analysis-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--green);
+    flex-shrink: 0;
+}
+
+.analysis-list.danger li::before {
+    background-color: var(--red);
+}
+
+.advice-text {
+    color: var(--gray-600);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* ============================================
+   다시 테스트하기 버튼
+   ============================================ */
+.reset-btn {
+    width: 100%;
+    background-color: var(--gray-100);
+    color: var(--gray-900);
+    padding: 16px;
+    border-radius: 16px;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.reset-btn:hover {
+    background-color: var(--gray-200);
+}
+
+.reset-icon {
+    display: inline-block;
+    font-size: 14px;
+}
+
+/* ============================================
+   통계 페이지
+   ============================================ */
+.stats-placeholder {
+    text-align: center;
+    padding: 64px 24px;
+}
+
+.stats-placeholder h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--gray-900);
+}
+
+.stats-placeholder p {
+    color: var(--gray-500);
+    font-size: 16px;
+}
+
+/* ============================================
+   반응형 레이아웃
+   ============================================ */
+@media (max-width: 1024px) {
+    .header-container {
+        padding: 0 16px;
+    }
+
+    .main {
+        padding: 16px;
+    }
+
+    .input-section {
+        padding: 16px;
+    }
+
+    .drink-section {
+        gap: 16px;
+    }
+
+    .sidebar-card {
+        padding: 16px;
+    }
+
+    .result-container {
+        gap: 16px;
+    }
+
+    .status-card {
+        padding: 24px;
+        border-radius: 24px;
+    }
+
+    .analysis-card,
+    .analysis-box {
+        padding: 20px;
+        border-radius: 24px;
+    }
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.bg-light-gray {
+    background-color: var(--bg-light);
+}
